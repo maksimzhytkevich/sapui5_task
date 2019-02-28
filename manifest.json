@@ -56,9 +56,13 @@
 					"bindingMode": "TwoWay"					
 				}
 			},
-			"screenData": {
+			"config": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "/model/screenData.json"
+				"uri": "/model/config.json"
+			},
+			"orderToCreate": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "/model/orderToCreate.json"
 			}
 		},		
 		"resources": {
