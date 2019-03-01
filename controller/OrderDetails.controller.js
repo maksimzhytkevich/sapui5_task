@@ -7,9 +7,8 @@ sap.ui.define([
 
 	return BaseController.extend("sapui5_task.controller.App", {
 
-		onInit: function() {
-            console.log("order details");
-            this.oView = this.getView();            
+		onInit: function() {            
+            this.oView = this.getView();                     
             var oRouter = this.getRouter();
             this.path = "";
             oRouter.getRoute("orderDetails").attachMatched(this._onRouteMatched, this);            
@@ -18,8 +17,7 @@ sap.ui.define([
         _onRouteMatched: function(oEvent) {
             this.path = oEvent.getParameter("arguments").order_num;
             var orderId = this.path.replace(/[^\d;]/g, '');
-            var oView = this.oView;
-            
+            var oView = this.oView;            
             var oModel = oView.getModel("mainData");            
 
             oModel.read("/" + this.path, {
@@ -36,22 +34,12 @@ sap.ui.define([
             var filters = new Array();
             var filterById = new Filter("orderId", sap.ui.model.FilterOperator.EQ, orderId);
             filters.push(filterById);
-            oModel.read("/OrderProducts?$filter=orderId+eq+28", {
-                filters: filters,
-                success: function(data){
-                    console.log(data);
-                    var products = new JSONModel(data);
-                    oView.setModel(products, "products");
-                    jQuery.sap.log.info("Succsess");                 
-                },
-                error: function() {
-                    jQuery.sap.log.error("Error");
-                }
-            });
+            var oBinding = oView.byId("productsTable").getBinding("items");
+            oBinding.filter(filters);            
         },
 
         // Ship to form
-        editShipToForm: function() {            
+        editShipToForm: function(oEvent) {       
             this.oView.getModel("config").setProperty("/shipToFormEditMode", true);
             this.changeShipButtonVisibility(true);            
         },
@@ -61,8 +49,8 @@ sap.ui.define([
             this.changeShipButtonVisibility(false);
             var oModel = this.oView.getModel("mainData");
             var orderModel = this.oView.getModel("orderDetails");
-            var orderToCreate = JSON.parse(orderModel.getJSON());
-            oModel.update("/" + this.path, orderToCreate, {
+            var orderToUpdate = JSON.parse(orderModel.getJSON());
+            oModel.update("/" + this.path, orderToUpdate, {
                 merge: false,
                 success: function(){
                     jQuery.sap.log.info("Sucsess");
@@ -80,7 +68,6 @@ sap.ui.define([
             var oModel = oView.getModel("mainData");
             oModel.read("/" + this.path, {
                 success: function(data){                   
-                    
                     oView.getModel("orderDetails").setData(data);
                     jQuery.sap.log.info("Succsess");                 
                 },
@@ -97,7 +84,7 @@ sap.ui.define([
         },
        
         //Customre info form
-        editCustomerInfoForm: function() {            
+        editCustomerInfoForm: function(oEvent) {         
             this.oView.getModel("config").setProperty("/customerInfoFormEditMode", true);
             this.changeCustomerButtonVisibility(true);            
         },
@@ -140,8 +127,13 @@ sap.ui.define([
 			this.oView.byId("CustEdit").setVisible(!bEdit);
 			this.oView.byId("CustSave").setVisible(bEdit);
 			this.oView.byId("CustCancel").setVisible(bEdit);			
-        }
+        },
 
+        deleteProduct: function(oEvent) {
+            var oModel = this.oView.getModel("mainData");                       
+            var path = oEvent.getParameter("listItem").getBindingContext("mainData").getPath();
+            oModel.remove(path);
+        }
 	});
 
 });

@@ -99,38 +99,44 @@
                     <subSections>
                         <ObjectPageSubSection title="Products">
                             <blocks>
-                                <m:Table id="productsTable" mode="Delete" delete="deleteProduct" items="{
-                                    path:'products>/results'
-                                }">
-                                    <m:columns>
-                                        <m:Column>
-                                            <m:Text text="ID" />
-                                        </m:Column>
-                                        <m:Column>
-                                            <m:Text text="Name" />
-                                        </m:Column>
-                                        <m:Column>
-                                            <m:Text text="Price" />
-                                        </m:Column>
-                                        <m:Column>
-                                            <m:Text text="Qty" />
-                                        </m:Column>
-                                        <m:Column>
-                                            <m:Text text="Total price" />
-                                        </m:Column>                                    
-                                    </m:columns>
+                                 <m:FlexBox direction="Column" alignItems="End" justifyContent="End">
                                     <m:items>
-                                         <m:ColumnListItem type="Navigation" press="navToMoreInfo">
-                                            <m:cells>
-                                                <m:Text text="{products>id}" />
-                                                <m:Text text="{products>name}" />
-                                                <m:Text text="{products>price}" />
-                                                <m:Text text="{products>quantity}" /> 
-                                                <m:Text text="{products>totalPrice}" />                                                
-                                            </m:cells>
-                                        </m:ColumnListItem>
-                                    </m:items>                                
-                                </m:Table>
+                                        <m:Button icon="sap-icon://add" press="onOpenDialog" />
+                                        <m:Table id="productsTable" mode="Delete" delete="deleteProduct" items="{
+                                                path:'mainData>/OrderProducts'
+                                            }">
+                                            <m:columns>
+                                                <m:Column>
+                                                    <m:Text text="ID" />
+                                                </m:Column>
+                                                <m:Column>
+                                                    <m:Text text="Name" />
+                                                </m:Column>
+                                                <m:Column>
+                                                    <m:Text text="Price" />
+                                                </m:Column>
+                                                <m:Column>
+                                                    <m:Text text="Qty" />
+                                                </m:Column>
+                                                <m:Column>
+                                                    <m:Text text="Total price" />
+                                                </m:Column>                                    
+                                            </m:columns>
+
+                                            <m:items>
+                                                <m:ColumnListItem type="Navigation" press="navToMoreInfo">
+                                                    <m:cells>
+                                                        <m:Text text="{mainData>id}" />
+                                                        <m:Text text="{mainData>name}" />
+                                                        <m:Text text="{mainData>price}" />
+                                                        <m:Text text="{mainData>quantity}" /> 
+                                                        <m:Text text="{mainData>totalPrice}" />                                                
+                                                    </m:cells>
+                                                </m:ColumnListItem>
+                                            </m:items>                                
+                                        </m:Table>                                       
+                                    </m:items>
+                                </m:FlexBox>                                                    
                             </blocks>
                         </ObjectPageSubSection>
                     </subSections>

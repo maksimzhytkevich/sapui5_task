@@ -7,27 +7,18 @@ sap.ui.define([
 
 	return BaseController.extend("sapui5_task.controller.OrdersOverview", {
 
-		onInit: function() {
-			
-			this.oView = this.getView();	
-			//this.oModel = this.oView.getModel("mainData");
-			//console.log(this.oModel);	
-			//this.getView().getModel("screenData").setProperty("/totalOrdersCount", 5);
-
-			//console.log(this.getView().byId("ordersTable"));						
+		onInit: function() {			
+			this.oView = this.getView();					
 		},
 		
 		deleteOrder: function(oEvent) {
-			var oModel = this.getView().getModel("mainData");
+			var oModel = this.oView.getModel("mainData");
 			var path = oEvent.getParameter("listItem").getBindingContext("mainData").getPath();
-
 			oModel.remove(path);			
 		},
 
 		navToMoreInfo: function(oEvent) {
-
 			var path = oEvent.getSource().getBindingContext("mainData").getPath();			
-			
 			this.getRouter().navTo("orderDetails", {order_num : path.substr(1)});						
 		},
 
@@ -62,9 +53,8 @@ sap.ui.define([
 		},
 
 		addOrder: function(){
-			var oModel = this.getView().getModel("mainData");			
+			var oModel = this.oView.getModel("mainData");			
 			var orderToCreate = this.createOrderObject();
-			console.log(orderToCreate);
 			oModel.create("/Orders", orderToCreate, {
 				success: function(){
 					jQuery.sap.log.info("Sucsess");
@@ -76,5 +66,4 @@ sap.ui.define([
 			this.onCloseDialog();		
 		}
 	});
-
 });
