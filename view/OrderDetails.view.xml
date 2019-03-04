@@ -49,9 +49,9 @@
                                 </forms:SimpleForm>
                                 <m:FlexBox alignItems="Start" justifyContent="End">
                                     <m:items>
-                                        <m:Button id="ShipEdit" icon="sap-icon://edit" press="editShipToForm"/>
-                                        <m:Button id="ShipSave" icon="sap-icon://save" press="saveShipToForm" visible="false"/>
-                                        <m:Button id="ShipCancel" icon="sap-icon://cancel" press="cancelShipToForm" visible="false"/>
+                                        <m:Button id="ShipEdit" icon="sap-icon://edit" press="editShipToForm" visible="{= ${config>/shipFormEditable} === false }"/>
+                                        <m:Button id="ShipSave" icon="sap-icon://save" press="saveForm" visible="{config>/shipFormEditable}"/>
+                                        <m:Button id="ShipCancel" icon="sap-icon://cancel" press="cancelForm" visible="{config>/shipFormEditable}"/>
                                     </m:items>
                                 </m:FlexBox>
                             </blocks>
@@ -85,9 +85,9 @@
                                 </forms:SimpleForm>
                                 <m:FlexBox alignItems="Start" justifyContent="End">
                                     <m:items>
-                                        <m:Button id="CustEdit" icon="sap-icon://edit" press="editCustomerInfoForm"/>
-                                        <m:Button id="CustSave" icon="sap-icon://save" press="saveCustomerInfoForm" visible="false"/>
-                                        <m:Button id="CustCancel" icon="sap-icon://cancel" press="cancelCustomerInfoForm" visible="false"/>
+                                        <m:Button id="CustEdit" icon="sap-icon://edit" press="editCustomerInfoForm" visible="{= ${config>/customerFormEditable} === false }"/>
+                                        <m:Button id="CustSave" icon="sap-icon://save" press="saveForm" visible="{config>/customerFormEditable}"/>
+                                        <m:Button id="CustCancel" icon="sap-icon://cancel" press="cancelForm" visible="{config>/customerFormEditable}"/>
                                     </m:items>
                                 </m:FlexBox>
                             </blocks>

@@ -8,11 +8,11 @@ sap.ui.define([
 	return BaseController.extend("sapui5_task.controller.OrdersOverview", {
 
 		onInit: function() {			
-			this.oView = this.getView();					
+								
 		},
 		
 		deleteOrder: function(oEvent) {
-			var oModel = this.oView.getModel("mainData");
+			var oModel = this.getView().getModel("mainData");
 			var path = oEvent.getParameter("listItem").getBindingContext("mainData").getPath();
 			oModel.remove(path);			
 		},
@@ -23,47 +23,41 @@ sap.ui.define([
 		},
 
 		onOpenDialog : function () {
-			var oView = this.oView;
-
-			if (!this.byId("createOrderDialog")) {
-				Fragment.load({
-					id: oView.getId(),
-					name: "sapui5_task.view.CreateOrder",
-					controller: this
-				}).then(function (oDialog) {
-					oView.addDependent(oDialog);
-					oDialog.open();
-				});
+			if(!this.oDialog){
+				this.oDialog = sap.ui.xmlfragment("sapui5_task.view.CreateOrder", this);
+				this.getView().addDependent(this.oDialog);
+				this.oDialog.open();
 			} else {
-				this.byId("createOrderDialog").open();
+				this.oDialog.open();
 			}
 		},
 
 		onCloseDialog : function () {	
-			this.oView.byId("createOrderDialog").close();
-		},
-
-		createOrderObject: function() {
-			var orderModel = this.oView.getModel("orderToCreate");			
-			var orderToCreate = JSON.parse(orderModel.getJSON());
-			var currentDate = new Date().toISOString();
-			orderToCreate.summary.createdAt	= currentDate;
-			orderToCreate.shipTo.shipedAt = currentDate;
-			return orderToCreate;
-		},
+			this.oDialog.close();
+		},		
 
 		addOrder: function(){
-			var oModel = this.oView.getModel("mainData");			
+			var context = this;
+			var oModel = this.getView().getModel("mainData");			
 			var orderToCreate = this.createOrderObject();
 			oModel.create("/Orders", orderToCreate, {
 				success: function(){
 					jQuery.sap.log.info("Sucsess");
+					context.onCloseDialog();
 				},
 				error : function () {
 					jQuery.sap.log.error("Error");
 				}
-			});
-			this.onCloseDialog();		
+			});					
+		},
+
+		createOrderObject: function() {
+			var orderModel = this.getView().getModel("orderToCreate");			
+			var orderToCreate = orderModel.getData();
+			var currentDate = new Date().toISOString();
+			orderToCreate.summary.createdAt	= currentDate;
+			orderToCreate.shipTo.shipedAt = currentDate;
+			return orderToCreate;
 		}
 	});
 });

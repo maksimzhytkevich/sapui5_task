@@ -1,4 +1,6 @@
 {
     "shipToFormEditMode": false,
-    "customerInfoFormEditMode": false
+    "customerInfoFormEditMode": false,
+    "shipFormEditable": false,
+    "customerFormEditable": false
 }

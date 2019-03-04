@@ -7,14 +7,34 @@
             <FlexBox justifyContent="SpaceBetween">
                 <l:VerticalLayout>
                     <Text text = "{productDetails>/name}" class="font_size_medium"/>
-                    <Text text="{i18n>headerTextQuantity} {productDetails>/quantiyt}{i18n>headerTextPrice} {productDetails>/price}" class="sapUiSmallMarginTop" />
+                    <Text text="{i18n>headerTextQuantity} {productDetails>/quantity}{i18n>headerTextPrice} {productDetails>/price}" class="sapUiSmallMarginTop" />
                 </l:VerticalLayout>
                 <Text text="{productDetails>/totalPrice}" class="font_size_medium"/>                
             </FlexBox>
-            <content>                  
-                 
-            </content>
+        </Panel>
+        <Panel>
+            <FlexBox alignItems="Center">              
+                <Label text="Author name: " class="sapUiSmallMarginBegin"/>
+                <Input value="{screenData>/authorName}" width="60%" class="sapUiSmallMarginBegin"/>
+                <Label text="Rating: "/>
+                <RatingIndicator maxValue="5" class="sapUiSmallMarginBegin" iconSize="18px" value="{screenData>/rating}"/>
+            </FlexBox>       
+                                
+            <FeedInput
+                post="onPost"
+                icon="resources/empty_user.png"
+                class="sapUiSmallMarginTopBottom" /> 
+            <List
+                id="commentsList"
+                showSeparators="Inner"
+                items="{
+                    path: 'mainData>/ProductComments'
+                }"  >
+                <FeedListItem
+                    sender="{mainData>author}"          
+                    info="Rating: {mainData>rating}"                            
+                    text="{mainData>comment}" />
+            </List>          
         </Panel>
     </Page>
-
 </mvc:View>
