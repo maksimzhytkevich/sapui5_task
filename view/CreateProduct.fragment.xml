@@ -8,28 +8,23 @@
       title="Create product">
       <VBox class="sapUiSmallMargin">
 		<f:SimpleForm >
-			<f:content>
-				<Label text="ID" />
-				<Input value="" />
-
+			<f:content>				
                 <Label text="Name" />
-				<Input value="" />
+				<Input value="{productToCreate>/name}" />
 
                 <Label text="Price" />
-				<Input value="" />
+				<Input value="{productToCreate>/price}" />
 
                 <Label text="Quantity" />
-				<Input value="" />
-
-                <Label text="Total price" />
-				<Input value="" />				
+				<Input value="{productToCreate>/quantity}" />
+               		
 			</f:content>
 		</f:SimpleForm>
 	</VBox>     
     <beginButton>
         <Button
             text="OK"
-            press="addOrder" /> 
+            press="addProduct" /> 
     </beginButton>
     <endButton>
         <Button

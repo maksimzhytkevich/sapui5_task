@@ -1,8 +1,10 @@
 sap.ui.define([
     "sapui5_task/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter"
-], function (BaseController, JSONModel, Filter) {
+    "sap/ui/model/Filter",
+    "sap/ui/core/Fragment"
+
+], function (BaseController, JSONModel, Filter, Fragment) {
 	"use strict";
 
 	return BaseController.extend("sapui5_task.controller.App", {
@@ -11,18 +13,20 @@ sap.ui.define([
             this.oView = this.getView();                     
             var oRouter = this.getRouter();
             this.path = "";
+            this.orderId = 0;
             oRouter.getRoute("orderDetails").attachMatched(this._onRouteMatched, this);            
         },
         
         _onRouteMatched: function(oEvent) {
             this.path = oEvent.getParameter("arguments").order_num;
-            var orderId = this.path.replace(/[^\d;]/g, '');
+            this.orderId = this.path.replace(/[^\d;]/g, '');
             var oView = this.oView;            
             var oModel = oView.getModel("mainData");            
 
             oModel.read("/" + this.path, {
                 success: function(data){
                     var details = new JSONModel(data);
+                    console.log(details);
                     oView.setModel(details, "orderDetails");
                     jQuery.sap.log.info("Succsess");                 
                 },
@@ -32,7 +36,7 @@ sap.ui.define([
             });
 
             var filters = new Array();
-            var filterById = new Filter("orderId", sap.ui.model.FilterOperator.EQ, orderId);
+            var filterById = new Filter("orderId", sap.ui.model.FilterOperator.EQ, this.orderId);
             filters.push(filterById);
             var oBinding = oView.byId("productsTable").getBinding("items");
             oBinding.filter(filters);            
@@ -133,6 +137,54 @@ sap.ui.define([
             var oModel = this.oView.getModel("mainData");                       
             var path = oEvent.getParameter("listItem").getBindingContext("mainData").getPath();
             oModel.remove(path);
+        },
+
+        onOpenDialog : function () {
+			var oView = this.oView;
+
+			if (!this.byId("createProductDialog")) {
+				Fragment.load({
+					id: oView.getId(),
+					name: "sapui5_task.view.CreateProduct",
+					controller: this
+				}).then(function (oDialog) {
+					oView.addDependent(oDialog);
+					oDialog.open();
+				});
+			} else {
+				this.byId("createProductDialog").open();
+			}
+		},
+
+		onCloseDialog : function (oEvt) {	
+			oEvt.getSource().close();
+        },
+        
+        addProduct: function() {            
+            var oModel = this.oView.getModel("mainData");			
+			var productToCreate = this.createProductObject();
+			oModel.create("/OrderProducts", productToCreate, {
+				success: function(){
+					jQuery.sap.log.info("Sucsess");
+				},
+				error : function () {
+					jQuery.sap.log.error("Error");
+				}
+			});
+			this.onCloseDialog();	
+        },
+
+        createProductObject: function() {
+			var productModel = this.oView.getModel("productToCreate");			
+			var productToCreate = JSON.parse(productModel.getJSON());
+            productToCreate.totalPrice = productToCreate.price * productToCreate.quantity;
+            productToCreate.orderId = this.orderId;
+			return productToCreate;
+        },
+        
+        navToComments: function(oEvent) {
+            var path = oEvent.getSource().getBindingContext("mainData").getPath();
+            this.getRouter().navTo("productDetails", {order_num : this.path, product_num : path.substr(1)});
         }
 	});
 

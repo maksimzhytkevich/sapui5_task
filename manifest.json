@@ -63,6 +63,10 @@
 			"orderToCreate": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "/model/orderToCreate.json"
+			},
+			"productToCreate": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "/model/productToCreate.json"
 			}
 		},		
 		"resources": {
@@ -94,6 +98,11 @@
 					"pattern": "orderDdetails/{order_num}",
 					"name": "orderDetails",
 					"target": "orderDetails"
+				},
+				{
+					"pattern": "orderDdetails/{order_num}/productDetails/{product_num}",
+					"name": "productDetails",
+					"target": "productDetails"
 				}
 			],
 			"targets": {
@@ -106,6 +115,16 @@
 					"viewID": "orderDetails",
 					"viewName": "OrderDetails",
 					"viewLevel": 2
+				},
+				"productDetails": {
+					"viewID": "productDetails",
+					"viewName": "ProductDetails",
+					"viewLevel": 3
+				},
+				"notFound": {
+				   "viewId": "notFound",
+				   "viewName": "NotFound",
+				   "transition": "show"
 				}
 			}
 		}	

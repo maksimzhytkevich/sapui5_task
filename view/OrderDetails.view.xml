@@ -4,46 +4,46 @@
         xmlns:core="sap.ui.core" 
         xmlns:l="sap.ui.layout"    
         xmlns:forms="sap.ui.layout.form" 
-    controllerName="sapui5_task.controller.OrderDetails">
-    <m:Page title="Order details" showNavButton="true" navButtonPress=".onNavBack">
+        controllerName="sapui5_task.controller.OrderDetails">
+    <m:Page title="{i18n>orderDetailsPageTitle}" showNavButton="true" navButtonPress=".onNavBack">
         <ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="false" showAnchorBarPopover="false" isChildPage="true">
             <headerTitle>
-                <ObjectPageHeader objectTitle="Order ({orderDetails>/id}), from {orderDetails>/summary/createdAt}"
-                    isObjectIconAlwaysVisible="true" objectSubtitle="Total price {orderDetails>/summary/price}">
+                <ObjectPageHeader objectTitle="{i18n>objectTitleOrder} ({orderDetails>/id}){i18n>objectTitleFrom} {orderDetails>/summary/createdAt}"
+                    isObjectIconAlwaysVisible="true" objectSubtitle="{i18n>objectSubtitle} {orderDetails>/summary/price}">
                 </ObjectPageHeader>
             </headerTitle>
 
             <headerContent>
                 <l:VerticalLayout>
                     <l:content>
-                        <m:Text text="Status: {orderDetails>/summary/status}" />
-                        <m:Text text="Customer: {orderDetails>/customerInfo/name}" />
+                        <m:Text text="{i18n>headerStatus} {orderDetails>/summary/status}" />
+                        <m:Text text="{i18n>headerCustomer} {orderDetails>/customerInfo/name}" />
                     </l:content>
                 </l:VerticalLayout>
             </headerContent>
             <sections>
-                <ObjectPageSection title="Ship info">
+                <ObjectPageSection title="{i18n>shipInfoSectionTitle}">
                     <subSections>
-                        <ObjectPageSubSection title="Ship info">
+                        <ObjectPageSubSection title="{i18n>shipInfoSectionTitle}">
                             <blocks>
                                 
                                 <forms:SimpleForm layout="ColumnLayout" columnsL="1">
                                     
-                                    <core:Title text="Ship to form" />
+                                    <core:Title text="{i18n>shipToFormTitle}" />
                                                                         
-                                    <m:Label text="Ship to" />
+                                    <m:Label text="{i18n>shipToLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/firstName}" editable="{config>/shipToFormEditMode}" />
 
-                                    <m:Label text="Address" />
+                                    <m:Label text="{i18n>addressLabel}" />
                                     <m:Input value="{orderDetails>/shipTo/address}" editable="{config>/shipToFormEditMode}"/>
 
-                                    <m:Label text="ZIP" />
+                                    <m:Label text="{i18n>zipLabel}" />
                                     <m:Input value="{orderDetails>/shipTo/zip}" editable="{config>/shipToFormEditMode}"/>
 
-                                    <m:Label text="Region" />
+                                    <m:Label text="{i18n>regionLabel}" />
                                     <m:Input value="{orderDetails>/shipTo/region}" editable="{config>/shipToFormEditMode}"/>
 
-                                    <m:Label text="Country" />
+                                    <m:Label text="{i18n>countryLabel}" />
                                     <m:Input value="{orderDetails>/shipTo/shipCountry}" editable="{config>/shipToFormEditMode}"/>
 
                                 </forms:SimpleForm>
@@ -59,27 +59,27 @@
                     </subSections>
                 </ObjectPageSection>
 
-                <ObjectPageSection title="Customer info">
+                <ObjectPageSection title="{i18n>customerInfoSectionTitle}">
                     <subSections>
-                        <ObjectPageSubSection title="Customer info">
+                        <ObjectPageSubSection title="{i18n>customerInfoSectionTitle}">
                             <blocks>
                                 <forms:SimpleForm editable="true" layout="ColumnLayout" columnsL="1">
 
-                                    <core:Title text="Customer info form" />
+                                    <core:Title text="{i18n>customerInfoFormTitle}" />
 
-                                    <m:Label text="First name" />
+                                    <m:Label text="{i18n>firstNameLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/firstName}" editable="{config>/customerInfoFormEditMode}"/>
 
-                                    <m:Label text="Last name" />
+                                    <m:Label text="{i18n>lastNameLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/lastName}" editable="{config>/customerInfoFormEditMode}"/>
 
-                                    <m:Label text="Address" />
+                                    <m:Label text="{i18n>addressLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/address}" editable="{config>/customerInfoFormEditMode}"/>
 
-                                    <m:Label text="Phone" />
+                                    <m:Label text="{i18n>phoneLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/phone}" editable="{config>/customerInfoFormEditMode}"/>
 
-                                    <m:Label text="Email" />
+                                    <m:Label text="{i18n>emailLabel}" />
                                     <m:Input value="{orderDetails>/customerInfo/email}" editable="{config>/customerInfoFormEditMode}"/>
 
                                 </forms:SimpleForm>
@@ -95,9 +95,9 @@
                     </subSections>
                 </ObjectPageSection>
 
-                <ObjectPageSection title="Products">
+                <ObjectPageSection title="{i18n>productsSectionTitle}">
                     <subSections>
-                        <ObjectPageSubSection title="Products">
+                        <ObjectPageSubSection title="{i18n>productsSectionTitle}">
                             <blocks>
                                  <m:FlexBox direction="Column" alignItems="End" justifyContent="End">
                                     <m:items>
@@ -107,24 +107,24 @@
                                             }">
                                             <m:columns>
                                                 <m:Column>
-                                                    <m:Text text="ID" />
+                                                    <m:Text text="{i18n>columnNameID}" />
                                                 </m:Column>
                                                 <m:Column>
-                                                    <m:Text text="Name" />
+                                                    <m:Text text="{i18n>columnNameName}" />
                                                 </m:Column>
                                                 <m:Column>
-                                                    <m:Text text="Price" />
+                                                    <m:Text text="{i18n>columnNamePrice}" />
                                                 </m:Column>
                                                 <m:Column>
-                                                    <m:Text text="Qty" />
+                                                    <m:Text text="{i18n>columnNameQuantity}" />
                                                 </m:Column>
                                                 <m:Column>
-                                                    <m:Text text="Total price" />
+                                                    <m:Text text="{i18n>columnNameTotalPrice}" />
                                                 </m:Column>                                    
                                             </m:columns>
 
                                             <m:items>
-                                                <m:ColumnListItem type="Navigation" press="navToMoreInfo">
+                                                <m:ColumnListItem type="Navigation" press="navToComments">
                                                     <m:cells>
                                                         <m:Text text="{mainData>id}" />
                                                         <m:Text text="{mainData>name}" />

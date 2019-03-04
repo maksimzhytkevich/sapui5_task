@@ -1,7 +1,7 @@
 {    
     "summary": {
         "status": "",
-        "price": ""
+        "price": 0
     },
     "shipTo": {
         "address": "",

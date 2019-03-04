@@ -1,0 +1,20 @@
+<mvc:View controllerName="sapui5_task.controller.ProductDetails" 
+    xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout" >
+    <Page title="{i18n>productDetailsPageTitle}" showNavButton="true" navButtonPress=".onNavBack">
+        <Panel class="sapUiResponsiveMargin" width="auto">
+            <FlexBox justifyContent="SpaceBetween">
+                <l:VerticalLayout>
+                    <Text text = "{productDetails>/name}" class="font_size_medium"/>
+                    <Text text="{i18n>headerTextQuantity} {productDetails>/quantiyt}{i18n>headerTextPrice} {productDetails>/price}" class="sapUiSmallMarginTop" />
+                </l:VerticalLayout>
+                <Text text="{productDetails>/totalPrice}" class="font_size_medium"/>                
+            </FlexBox>
+            <content>                  
+                 
+            </content>
+        </Panel>
+    </Page>
+
+</mvc:View>
